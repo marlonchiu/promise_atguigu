@@ -80,21 +80,41 @@
       const p1 = Promise.resolve(2); // 如果是一般值, promise成功, p1成功, value就是这个值
       const p2 = Promise.resolve(Promise.resolve(3)); // 如果是成功的promise, p2成功, value 是这个 promise 的 value
       const p3 = Promise.resolve(Promise.reject(4)); // 如果是失败的promise, p3失败, reason 是这个 promise 的 reason
-      p1.then(value => {
-        console.log("p1", value);
-      });
-      p2.then(value => {
-        console.log("p2", value);
-      });
-      p3.catch(reason => {
-        console.log("p3", reason);
-      });
+      // p1.then(value => {
+      //   console.log("p1", value);
+      // });
+      // p2.then(value => {
+      //   console.log("p2", value);
+      // });
+      // p3.catch(reason => {
+      //   console.log("p3", reason);
+      // });
 
       // const p4 = new Promise((resolve) => {
       //   setTimeout(() => {
       //     resolve(5)
       //   }, 1000);
       // })
+
+      const pAll = Promise.all([p1, p2]);
+      pAll.then(
+        values => {
+          console.log("all onResolved()", values);
+        },
+        reason => {
+          console.log("all onRejected()", reason);
+        }
+      );
+
+      const pRace = Promise.race([p2, p3]);
+      pRace.then(
+        value => {
+          console.log("race onResolved()", value);
+        },
+        reason => {
+          console.log("race onRejected()", reason);
+        }
+      );
     </script>
   </body>
 </html>
