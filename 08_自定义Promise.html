@@ -90,13 +90,14 @@
       //   console.log("p3", reason);
       // });
 
-      // const p4 = new Promise((resolve) => {
-      //   setTimeout(() => {
-      //     resolve(5)
-      //   }, 1000);
-      // })
+      const p4 = new Promise(resolve => {
+        setTimeout(() => {
+          resolve(5);
+        }, 1000);
+      });
+      const p5 = Promise.reject(6)
 
-      const pAll = Promise.all([p1, p2]);
+      const pAll = Promise.all([p4, 7, p1, p2]);
       pAll.then(
         values => {
           console.log("all onResolved()", values);
@@ -106,7 +107,7 @@
         }
       );
 
-      const pRace = Promise.race([p2, p3]);
+      const pRace = Promise.race([p4, 7, p5, p2, p3]);
       pRace.then(
         value => {
           console.log("race onResolved()", value);
