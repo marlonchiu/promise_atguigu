@@ -90,12 +90,13 @@
       //   console.log("p3", reason);
       // });
 
-      const p4 = new Promise(resolve => {
-        setTimeout(() => {
-          resolve(5);
-        }, 1000);
-      });
-      const p5 = Promise.reject(6)
+      // const p4 = new Promise(resolve => {
+      //   setTimeout(() => {
+      //     resolve(5);
+      //   }, 1000);
+      // });
+      const p4 = Promise.resolveDelay(5, 1000);
+      const p5 = Promise.reject(6);
 
       const pAll = Promise.all([p4, 7, p1, p2]);
       pAll.then(
@@ -116,6 +117,15 @@
           console.log("race onRejected()", reason);
         }
       );
+
+      const p6 = Promise.resolveDelay(66, 2000);
+      const p7 = Promise.rejectDelay(77, 3000);
+      p6.then(value => {
+        console.log("p6", value);
+      });
+      p7.catch(reason => {
+        console.log("p7", reason);
+      });
     </script>
   </body>
 </html>
